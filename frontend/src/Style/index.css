@@ -1,0 +1,195 @@
+/* --------------------------------------------------------------
+   1. INTER FONT – loads correctly
+   -------------------------------------------------------------- */
+@import url('https://rsms.me/inter/inter.css');
+
+html {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+}
+
+/* --------------------------------------------------------------
+   2. RESET
+   -------------------------------------------------------------- */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* --------------------------------------------------------------
+   3. BANNER SECTION – centers the card
+   -------------------------------------------------------------- */
+.banner-section {
+  margin-top: 10rem;
+  display: flex;
+  justify-content: center;
+  padding: 4rem 1rem;
+  width: 100%;
+}
+
+/* --------------------------------------------------------------
+   4. BANNER CARD – main purple container
+   -------------------------------------------------------------- */
+.banner-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 1200px;
+  background: #5e60ce;
+  border-radius: 24px;
+  overflow: hidden;
+  padding: 4rem 2rem;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
+              0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+/* Desktop: side-by-side */
+@media (min-width: 768px) {
+  .banner-card {
+    flex-direction: row;
+    padding: 3rem;
+    gap: 2rem;
+  }
+}
+
+/* --------------------------------------------------------------
+   5. LEFT CONTENT
+   -------------------------------------------------------------- */
+.banner-left {
+  color: white;
+  max-width: 420px;
+  text-align: left;
+}
+
+.banner-title {
+  font-size: 2.5rem;
+  font-weight: 800;
+  line-height: 1.1;
+  margin-bottom: 1.5rem;
+  letter-spacing: -0.02em;
+}
+
+@media (min-width: 768px) {
+  .banner-title {
+    font-size: 2.5rem;
+  }
+}
+
+/* --------------------------------------------------------------
+   6. AVATARS + TEXT
+   -------------------------------------------------------------- */
+.banner-info {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.avatar-group {
+  display: flex;
+  align-items: center;
+}
+
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid white;
+  flex-shrink: 0;
+}
+
+.avatar + .avatar {
+  margin-left: -12px;
+}
+
+.banner-desc {
+  font-size: 0.875rem;
+  line-height: 1.5;
+  opacity: 0.9;
+  max-width: 260px;
+}
+
+/* --------------------------------------------------------------
+   7. BUTTON
+   -------------------------------------------------------------- */
+.banner-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: white;
+  color: #5e60ce;
+  font-weight: 600;
+  font-size: 1rem;
+  padding: 0.75rem 1.5rem;
+  border-radius: 9999px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.banner-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px -3px rgba(0, 0, 0, 0.15);
+}
+
+.arrow-icon {
+  width: 20px;
+  height: 20px;
+}
+
+/* --------------------------------------------------------------
+   8. RIGHT IMAGE
+   -------------------------------------------------------------- */
+.banner-right {
+  margin-top: 2.5rem;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.doctor-img {
+  width: 100%;
+  max-width: 380px;
+  height: auto;
+  object-fit: contain;
+}
+
+@media (min-width: 768px) {
+  .banner-right {
+    margin-top: 0;
+    margin-left: 2rem;
+    width: auto;
+  }
+}
+
+/* --------------------------------------------------------------
+   9. MOBILE FIXES – stack & center
+   -------------------------------------------------------------- */
+@media (max-width: 767px) {
+  .banner-card {
+    padding: 2rem 1.5rem;
+  }
+
+  .banner-left {
+    text-align: center;
+  }
+
+  .banner-info {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .banner-desc {
+    max-width: none;
+  }
+
+  .banner-right {
+    margin-top: 2rem;
+  }
+}
