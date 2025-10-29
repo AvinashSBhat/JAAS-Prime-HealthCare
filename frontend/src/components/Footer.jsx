@@ -24,16 +24,16 @@ const Footer = () => {
         <div>
           <p className='text-xl font-medium mb-5'>GET IN TOUCH</p>
           <ul className='flex flex-col gap-2 text-gray-600'>
-            <li>+91 1444-0025-88</li>
-            <li>tomedical@thejaas.com</li>
-            </ul>
+            <li>+91 14-0044-5689</li>
+            <li>toJAAS-Mediacl@gmail.com</li>
+          </ul>
         </div>
 
       </div>
 
       <div>
         <hr />
-        <p className='py-5 text-sm text-center'>Copyright 2025 @ JAAS.com - All Right Reserved.</p>
+        <p className='py-5 text-sm text-center'>Copyright 2025 @ JAAS-Medical.com - All Right Reserved.</p>
       </div>
 
     </div>

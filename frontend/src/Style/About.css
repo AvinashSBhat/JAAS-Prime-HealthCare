@@ -1,0 +1,101 @@
+.about-container {
+    font-family: "Poppins", sans-serif;
+    color: #222;
+    line-height: 1.6;
+    padding: 50px 80px;
+    background-color: #fff;
+  }
+  
+  /* ABOUT SECTION */
+  .about-section {
+    display: flex;
+    align-items: flex-start;
+    gap: 40px;
+    margin-bottom: 60px;
+  }
+  
+  .about-image img {
+    width: 100%;
+    max-width: 500px;
+    border-radius: 12px;
+    object-fit: cover;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  }
+  
+  .about-content h2 {
+    font-size: 26px;
+    font-weight: 600;
+    margin-bottom: 20px;
+  }
+  
+  .about-content h2 span {
+    color: #0077cc;
+  }
+  
+  .about-content h3 {
+    font-size: 20px;
+    margin-top: 20px;
+    font-weight: 600;
+  }
+  
+  .about-content p {
+    margin-bottom: 15px;
+    font-size: 15px;
+    color: #444;
+  }
+  
+  /* WHY CHOOSE US SECTION */
+  .choose-section h2 {
+    text-align: center;
+    font-size: 26px;
+    font-weight: 600;
+    margin-bottom: 40px;
+  }
+  
+  .choose-section h2 span {
+    color: #0077cc;
+  }
+  
+  .choose-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 30px;
+  }
+  
+  .choose-card {
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 25px;
+    text-align: left;
+    transition: 0.3s;
+    background-color: #fafafa;
+  }
+  
+  .choose-card:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transform: translateY(-4px);
+  }
+  
+  .choose-card h3 {
+    color: #333;
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+  
+  .choose-card p {
+    color: #555;
+    font-size: 15px;
+  }
+  
+  /* Responsive */
+  @media (max-width: 768px) {
+    .about-section {
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+  
+    .about-image img {
+      max-width: 100%;
+    }
+  }
