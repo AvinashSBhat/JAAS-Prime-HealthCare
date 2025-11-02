@@ -21,7 +21,7 @@ const Appointment = () => {
     const navigate = useNavigate()
 
     const fetchDocInfo = useCallback(async () => {
-        const docInfo = doctors.find((doc) => String(doc.id) === String(docId))
+        const docInfo = doctors.find((doc) => String(doc._id) === String(docId))
         setDocInfo(docInfo)
     }, [doctors, docId]);
 
