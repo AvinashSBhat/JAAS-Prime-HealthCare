@@ -21,7 +21,7 @@ const Appointment = () => {
     const navigate = useNavigate()
 
     const fetchDocInfo = useCallback(async () => {
-        const docInfo = doctors.find((doc) => doc._id === docId)
+        const docInfo = doctors.find((doc) => String(doc.id) === String(docId))
         setDocInfo(docInfo)
     }, [doctors, docId]);
 
@@ -109,7 +109,7 @@ const Appointment = () => {
     const month = String(dateObj.getMonth() + 1).padStart(2, "0");
     const day = String(dateObj.getDate()).padStart(2, "0");
 
-    const formattedDate = `${year}-${month}-${day}`; // ✅ backend friendly format
+    const formattedDate = `${year}-${month}-${day}`; 
 
     try {
         console.log("Sending booking request", {
