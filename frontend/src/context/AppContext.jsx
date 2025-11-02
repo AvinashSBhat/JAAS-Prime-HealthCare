@@ -1,6 +1,7 @@
 import { createContext, useState } from 'react';
 import PropTypes from 'prop-types';
 import { doctors as localDoctors } from "../assets/assets";
+import axios from 'axios';
 
 export const AppContext = createContext();
 
@@ -23,16 +24,24 @@ const AppContextProvider = ({ children }) => {
   // Default to http://localhost:8080 where the Spring Boot server usually runs.
   const backendUrl = "http://localhost:8080";
 
+  // Load doctors data from backend
+  const getDoctosData = async () => {
+    try {
+      const { data } = await axios.get(`${backendUrl}/api/doctors`);
+      setDoctors(data);
+      return data;
+    } catch (error) {
+      console.error("Error fetching doctors:", error);
+      // Fallback to local data if backend fails
+      setDoctors(localDoctors);
+      return localDoctors;
+    }
+  };
+
   // Load user profile data function that works without backend
   const loadUserProfileData = async () => {
     // This function now just returns the local data
     return userData;
-  };
-
-  // Function to get doctors data
-  const getDoctosData = async () => {
-    // For now, just ensure doctors are loaded from local data
-    setDoctors(localDoctors);
   };
 
   const value = {
