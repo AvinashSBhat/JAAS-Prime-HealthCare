@@ -93,7 +93,7 @@ const Appointment = () => {
         return navigate('/login');
     }
 
-    if (!docId || isNaN(Number(docId))) {
+    if (!docId || isNaN(Number(docId.replace('doc', '')))) {
         toast.error('Invalid doctor selected');
         return;
     }
