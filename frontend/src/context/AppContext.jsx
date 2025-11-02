@@ -1,81 +1,57 @@
-import { createContext, useEffect, useState } from "react";
-import { toast } from "react-toastify";
-import axios from 'axios'
+import { createContext, useState } from 'react';
+import PropTypes from 'prop-types';
+import { doctors as localDoctors } from "../assets/assets";
 
-export const AppContext = createContext()
+export const AppContext = createContext();
 
-const AppContextProvider = (props) => {
+const AppContextProvider = ({ children }) => {
+  const [aToken, setAToken] = useState(localStorage.getItem("aToken") || "");
+  const [doctors, setDoctors] = useState(localDoctors || []);
+  const [userData, setUserData] = useState(null);
 
-    const currencySymbol = '₹'
-    const backendUrl = import.meta.env.VITE_BACKEND_URL
-
-    const [doctors, setDoctors] = useState([])
-    const [token, setToken] = useState(localStorage.getItem('token') ? localStorage.getItem('token') : '')
-    const [userData, setUserData] = useState(false)
-
-    // Getting Doctors using API
-    const getDoctosData = async () => {
-
-        try {
-
-            const { data } = await axios.get(backendUrl + '/api/doctor/list')
-            if (data.success) {
-                setDoctors(data.doctors)
-            } else {
-                toast.error(data.message)
-            }
-
-        } catch (error) {
-            console.log(error)
-            toast.error(error.message)
-        }
-
+  // Function to update token
+  const updateToken = (token) => {
+    if (token) {
+      localStorage.setItem("aToken", token);
+    } else {
+      localStorage.removeItem("aToken");
     }
+    setAToken(token || "");
+  };
 
-    // Getting User Profile using API
-    const loadUserProfileData = async () => {
+  // Backend base URL — update to your running backend if different.
+  // Default to http://localhost:8080 where the Spring Boot server usually runs.
+  const backendUrl = "http://localhost:8080";
 
-        try {
+  // Load user profile data function that works without backend
+  const loadUserProfileData = async () => {
+    // This function now just returns the local data
+    return userData;
+  };
 
-            const { data } = await axios.get(backendUrl + '/api/user/get-profile', { headers: { token } })
+  // Function to get doctors data
+  const getDoctosData = async () => {
+    // For now, just ensure doctors are loaded from local data
+    setDoctors(localDoctors);
+  };
 
-            if (data.success) {
-                setUserData(data.userData)
-            } else {
-                toast.error(data.message)
-            }
+  const value = {
+    aToken,
+    setAToken,
+    doctors,
+    setDoctors,
+    userData,
+    setUserData,
+    backendUrl,
+    loadUserProfileData,
+    getDoctosData,
+  };
 
-        } catch (error) {
-            console.log(error)
-            toast.error(error.message)
-        }
+  return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
+};
 
-    }
+AppContextProvider.propTypes = {
+  children: PropTypes.node.isRequired
+};
 
-    useEffect(() => {
-        getDoctosData()
-    }, [])
-
-    useEffect(() => {
-        if (token) {
-            loadUserProfileData()
-        }
-    }, [token])
-
-    const value = {
-        doctors, getDoctosData,
-        currencySymbol,
-        backendUrl,
-        token, setToken,
-        userData, setUserData, loadUserProfileData
-    }
-
-    return (
-        <AppContext.Provider value={value}>
-            {props.children}
-        </AppContext.Provider>
-    )
-
-}
-
-export default AppContextProvider
+export default AppContextProvider;
