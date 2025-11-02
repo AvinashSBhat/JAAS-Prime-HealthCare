@@ -93,6 +93,11 @@ const Appointment = () => {
         return navigate('/login');
     }
 
+    if (!docId || isNaN(Number(docId))) {
+        toast.error('Invalid doctor selected');
+        return;
+    }
+
     if (!slotTime) {
         toast.warning('Please select a time slot');
         return;
