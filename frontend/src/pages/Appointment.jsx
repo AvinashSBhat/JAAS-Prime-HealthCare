@@ -121,7 +121,7 @@ const Appointment = () => {
         const { data } = await axios.post(
             `${backendUrl}/api/appointments/book`,
             {
-                doctorId: Number(docId),
+                doctorId: Number(docId.replace('doc', '')),
                 date: formattedDate,
                 time: slotTime
             },
