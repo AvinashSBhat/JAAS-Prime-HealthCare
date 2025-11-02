@@ -88,53 +88,57 @@ const Appointment = () => {
     }, [docInfo]);
 
     const bookAppointment = useCallback(async () => {
-        if (!aToken) {
-            toast.warning('Please login to book an appointment')
-            return navigate('/login')
-        }
+    if (!aToken) {
+        toast.warning('Please login to book an appointment');
+        return navigate('/login');
+    }
 
-        if (!slotTime) {
-            toast.warning('Please select a time slot')
-            return
-        }
+    if (!slotTime) {
+        toast.warning('Please select a time slot');
+        return;
+    }
 
-        const date = docSlots[slotIndex][0].datetime
+    const dateObj = docSlots[slotIndex][0].datetime;
 
-        let day = date.getDate()
-        let month = date.getMonth() + 1
-        let year = date.getFullYear()
+    const year = dateObj.getFullYear();
+    const month = String(dateObj.getMonth() + 1).padStart(2, "0");
+    const day = String(dateObj.getDate()).padStart(2, "0");
 
-        const slotDate = day + "_" + month + "_" + year
+    const formattedDate = `${year}-${month}-${day}`; // ✅ backend friendly format
 
-        try {
-            console.log('Booking appointment...', { docId, slotDate, slotTime })
-            const { data } = await axios.post(
-                `${backendUrl}/api/appointments/book`,
-                {
-                    doctorId: Number(docId),
-                    date: slotDate,
-                    time: slotTime
-                },
-                {
-                    headers: {
-                        'Authorization': `Bearer ${aToken}`,
-                        'Content-Type': 'application/json'
-                    }
+    try {
+        console.log("Sending booking request", {
+            doctorId: Number(docId),
+            date: formattedDate,
+            time: slotTime
+        });
+
+        const { data } = await axios.post(
+            `${backendUrl}/api/appointments/book`,
+            {
+                doctorId: Number(docId),
+                date: formattedDate,
+                time: slotTime
+            },
+            {
+                headers: {
+                    Authorization: `Bearer ${aToken}`, // ✅ fixed
+                    "Content-Type": "application/json"
                 }
-            )
-            console.log('Appointment response:', data)
-            toast.success('Appointment booked successfully!')
-            getDoctosData()
-            navigate('/my-appointments')
-        } catch (error) {
-            console.error('Appointment booking error:', error)
-            if (error.response?.data?.message) {
-                toast.error(error.response.data.message)
-            } else {
-                toast.error('Failed to book appointment. Please try again.')
             }
-        }
-    }, [aToken, docSlots, slotIndex, backendUrl, docId, slotTime, navigate, getDoctosData])
+        );
+
+        console.log("Response:", data);
+        toast.success("Appointment booked successfully!");
+        getDoctosData();
+        navigate("/my-appointments");
+
+    } catch (error) {
+        console.error("Appointment booking error:", error?.response || error);
+        toast.error(error?.response?.data?.message || "Booking failed");
+    }
+}, [aToken, docSlots, slotIndex, backendUrl, docId, slotTime, navigate, getDoctosData]);
+
 
     useEffect(() => {
         if (doctors.length > 0) {
